@@ -79,25 +79,35 @@ fn get_vec_average(vals: &[u8]) -> u8 {
     (sum as usize / length) as u8
 }
 
-fn get_percent_occurrence(num: u8, vect: Vec<u8>) -> f32 {
+fn get_percent_occurrence(num: u8, vals: &[u8]) -> f32 {
     let mut count = 0;
-    for i in vect.iter() {
+    for i in vals.iter() {
         if i == &num {
             count += 1
         };
     }
-    count as f32 / vect.len() as f32
+    count as f32 / vals.len() as f32
+}
+
+fn get_percentile_by_value(num: u8, vals: &[u8]) -> f32 {
+    let mut count = 0;
+    for i in vals.iter() {
+        if i >= &num {
+            count +=1;
+        }
+    }
+    count as f32 / vals.len() as f32
 }
 
 fn display_stats(vals: &[u8]) {
     info!("Median value: {}", vals[vals.len() / 2 - 1]);
     info!("Average value: {}", get_vec_average(vals));
-    info!("Percent Distribution:");
+    info!("Percent Chance to Meet or beat DC:");
     for i in 1..21 {
         info!(
-            "{}: {}%",
+            "DC {}: {:.2}%",
             i,
-            get_percent_occurrence(i, vals.to_vec()) * 100.0
+            get_percentile_by_value(i, vals) * 100.0
         );
     }
 }
