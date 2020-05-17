@@ -10,4 +10,3 @@ edition = "2018"
 rand = "0.7.3"
 log = "0.4.8"
 simple_logger = { version = "1.6.0", default-features = false }
-gnuplot = "0.0.35"
